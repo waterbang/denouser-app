@@ -15,12 +15,13 @@ class DenoService : IntentService("DenoService") {
         }
     }
 
-    external fun stringFromRustJNI(): String
-    external fun runTest()
+    private external fun stringFromRustJNI()
+    private external fun runTest()
 
 
+    @Deprecated("Deprecated in Java")
     override fun onHandleIntent(p0: Intent?) {
-        Log.d(TAG, "onCreate: ${stringFromRustJNI()}")
+         stringFromRustJNI()
         runTest()
     }
 }
