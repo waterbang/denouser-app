@@ -1,5 +1,6 @@
 package com.atstudio.denouser
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -21,6 +22,8 @@ const val TAG = "mylog"
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val deno = Intent(this, DenoService::class.java)
+        startService(deno)
         setContent {
             DenoUserTheme {
                 // A surface container using the 'background' color from the theme
@@ -32,21 +35,10 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-
-        Thread {
-            Log.d(TAG, "onCreate: ${stringFromRustJNI()}")
-            runTest()
-        }.start()
     }
 
-    external fun stringFromRustJNI(): String
-    external fun runTest()
 
-    companion object {
-        init {
-            System.loadLibrary("denouser")
-        }
-    }
+
 }
 
 @Composable
